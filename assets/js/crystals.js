@@ -63,11 +63,16 @@ $(function () {
     })
 
     $("#newGame").on("click", function(){
+        
         reset()
+        
     })
 
     function userWin() {
-        alert("You won!");
+        setTimeout(() => {
+            $("#message").text("You Win")
+            $('#myModal').modal('show')
+        }, 500);
         wins++;
         $("#wins").html(wins);
 
@@ -75,7 +80,8 @@ $(function () {
 
     function userLoss() {
         setTimeout(() => {
-            alert("You lost!");
+            $("#message").text("You lost")
+            $('#myModal').modal('show')
         }, 500);
         
         losses++;
