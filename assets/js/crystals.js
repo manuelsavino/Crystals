@@ -4,103 +4,111 @@ $(function () {
     var wins = 0;
     var losses = 0;
 
-    var scoreNeeded = Math.floor(Math.random() * 102 + 19);
-    $("#targetScore").html(scoreNeeded)
+    var scoreNeeded = Math.floor(Math.random() * 120) + 19;
+    $("#targetScore").text(scoreNeeded)
 
-    var number1 = Math.floor(Math.random() * 12 + 1);
-    var number2 = Math.floor(Math.random() * 12 + 1);
-    var number3 = Math.floor(Math.random() * 12 + 1);
-    var number4 = Math.floor(Math.random() * 12 + 1);
+    var numbers = []
+   
+    genNum()
 
-    $("#wins").html(wins)
-    $("#losses").html(losses)
+    $("#wins").text(wins)
+    $("#losses").text(losses)
 
-    $("#crystal1").on("click", function () {
-        userScore = userScore + number1;
-        $("#playerScore").html(userScore)
-        $("#crystal1Num").text(number1)
+    $("#crystal1").on("click", () => {
+        userScore = userScore + numbers[0];
+        $("#playerScore").text(userScore)
+        $("#crystal1Num").text(numbers[0])
         if (userScore == scoreNeeded) {
-            userWin();
+            win();
         } else if (userScore > scoreNeeded) {
-            userLoss();
+            loss();
         }
     })
 
-    $("#crystal2").on("click", function () {
-        userScore = userScore + number2;
-        $("#playerScore").html(userScore)
-        $("#crystal2Num").text(number2)
+    $("#crystal2").on("click", () => {
+        userScore = userScore + numbers[1];
+        $("#playerScore").text(userScore)
+        $("#crystal2Num").text(numbers[1])
 
         if (userScore == scoreNeeded) {
-            userWin();
+            win();
         } else if (userScore > scoreNeeded) {
-            userLoss();
+            loss();
         }
     })
 
-    $("#crystal3").on("click", function () {
-        userScore = userScore + number3;
-        $("#playerScore").html(userScore)
-        $("#crystal3Num").text(number3)
+    $("#crystal3").on("click", () => {
+        userScore = userScore + numbers[2];
+        $("#playerScore").text(userScore)
+        $("#crystal3Num").text(numbers[2])
 
         if (userScore == scoreNeeded) {
-            userWin();
+            win();
         } else if (userScore > scoreNeeded) {
-            userLoss();
+            loss();
         }
     })
 
-    $("#crystal4").on("click", function () {
-        userScore = userScore + number4;
-        $("#playerScore").html(userScore)
-        $("#crystal4Num").text(number4)
+    $("#crystal4").on("click", () =>{
+        userScore = userScore + numbers[3];
+        $("#playerScore").text(userScore)
+        $("#crystal4Num").text(numbers[3])
 
         if (userScore == scoreNeeded) {
-            userWin();
+            win();
         } else if (userScore > scoreNeeded) {
-            userLoss();
+            loss();
         }
     })
 
-    $("#newGame").on("click", function(){
+    $("#newGame").on("click", () =>{
         
         reset()
         
     })
 
-    function userWin() {
+    var win = () => {
         setTimeout(() => {
             $("#message").text("You Win")
             $('#myModal').modal('show')
         }, 500);
         wins++;
-        $("#wins").html(wins);
+        $("#wins").text(wins);
 
     }
 
-    function userLoss() {
+    var loss = () => {
         setTimeout(() => {
             $("#message").text("You lost")
-            $('#myModal').modal('show')
+            $('#myModal').modal({ backdrop: 'static', keyboard: false })
         }, 500);
+        for(i = 0; i < 4; i++)
+        {
+            numbers[i] = 0;
+        }
+        console.log(numbers)
         
         losses++;
-        $("#losses").html(losses);
+        $("#losses").text(losses);
     }
 
-    function reset() {
+    var reset = () => {
         userScore = 0;
         scoreNeeded = Math.floor(Math.random() * 102 + 19);
-        $("#targetScore").html(scoreNeeded)
-        number1 = Math.floor(Math.random() * 12 + 1);
-        number2 = Math.floor(Math.random() * 12 + 1);
-        number3 = Math.floor(Math.random() * 12 + 1);
-        number4 = Math.floor(Math.random() * 12 + 1);
+        $("#targetScore").text(scoreNeeded)
+        genNum()
         $("#crystal1Num").text("")
         $("#crystal2Num").text("")
         $("#crystal3Num").text("")
         $("#crystal4Num").text("")
-        $("#playerScore").html(userScore)
+        $("#playerScore").text("0")
+    }
+
+    function  genNum () {
+         for(i = 0; i < 4; i++)
+    {
+        numbers[i] = Math.floor(Math.random() * 12) + 1;
+    }
     }
 
 })
